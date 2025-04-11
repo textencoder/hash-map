@@ -55,7 +55,18 @@ class HashMap {
     }
 
     remove(key) {
-      
+      for (const [index, entry] of this.map.entries()) {
+        if (entry !== undefined) {
+          if (Object.keys(entry)[0] == key) {
+            delete this.map[index];
+            console.log("entry removed")
+            return true;
+          } else {
+            console.log('entry not found/removed');
+            return false;
+          }
+        }     
+      }
     }
 }
 
@@ -67,4 +78,6 @@ hashTest.set('Rama', "tricky")
 hashTest.set('Sita', 'glicky')
 hashTest.set('Rama', "blicky")
 hashTest.get('Rama');
-hashTest.has('Ramo')
+hashTest.has('Ramo');
+hashTest.remove('Rama')
+console.log(hashTest.map)
