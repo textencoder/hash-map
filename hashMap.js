@@ -1,7 +1,7 @@
 import { LinkedList, Node } from "./linkedList.js";
 
 class HashMap {
-  constructor(loadFactor = capacity * 0.75, capacity, map = []) {
+  constructor(loadFactor, capacity, map = []) {
     this.loadFactor = loadFactor;
     //this.capacity = capacity;
     this.map = map;
@@ -13,7 +13,7 @@ class HashMap {
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 4;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 31;
     }
 
     return hashCode;
@@ -82,18 +82,57 @@ class HashMap {
         delete this.map[index];
       }   
   }
+
+  keys() {
+    let keysArray = [];
+    for (const [index, entry] of this.map.entries()) {
+      if (this.map[index] !== undefined) {
+        //console.log(Object.keys(entry).toString())
+        keysArray.push(Object.keys(entry).toString())
+      }
+    }
+    console.log("keys: ", keysArray)
+    return keysArray;
+  }
+
+  values() {
+    let valuesArray = [];
+    for (const [index, entry] of this.map.entries()) {
+      if (this.map[index] !== undefined) {
+        valuesArray.push(Object.values(entry).toString())
+      }
+    }
+    console.log("values: ", valuesArray);
+    return valuesArray;
+  }
+
+  entries() {
+    let entriesArray = [];
+    for (const [index, entry] of this.map.entries()) {
+      if (this.map[index] !== undefined) {
+        entriesArray.push(entry)
+      }
+    }
+    console.log("entries: ", entriesArray);
+    return entriesArray;
+  }
 }
 
-const hashTest = new HashMap(0.75, 12, []);
+const hashTest = new HashMap(0.75, 16, []);
 
 //console.log(hashTest.hash('Rama'))
 
 hashTest.set("Rama", "tricky");
+hashTest.set("Dani", "smiggy");
+hashTest.set("Paso", "shifty");
 // hashTest.set("Sita", "glicky");
 // hashTest.set("Rama", "blicky");
 // hashTest.get("Rama");
 // hashTest.has("Ramo");
 // hashTest.remove("Rama");
-hashTest.length();
-hashTest.clear();
+//hashTest.length();
+//hashTest.clear();
+hashTest.keys();
+hashTest.values();
+hashTest.entries();
 console.log(hashTest.map);
