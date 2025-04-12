@@ -62,6 +62,26 @@ class HashMap {
       }
     }
   }
+
+  length() {
+    let length = 0;
+    for (const entry of this.map) {
+      if (entry !== undefined) {
+        length++;
+      }
+    }
+    console.log("length: ", length)
+    return length;
+  }
+
+  clear() {
+    for (const [index, entry] of this.map.entries())
+      if (this.map[index] !== undefined) {
+        console.log("to be cleared: ", index);
+        console.log("to be cleared: ", entry);
+        delete this.map[index];
+      }   
+  }
 }
 
 const hashTest = new HashMap(0.75, 12, []);
@@ -69,9 +89,11 @@ const hashTest = new HashMap(0.75, 12, []);
 //console.log(hashTest.hash('Rama'))
 
 hashTest.set("Rama", "tricky");
-hashTest.set("Sita", "glicky");
-hashTest.set("Rama", "blicky");
-hashTest.get("Rama");
-hashTest.has("Ramo");
-hashTest.remove("Rama");
+// hashTest.set("Sita", "glicky");
+// hashTest.set("Rama", "blicky");
+// hashTest.get("Rama");
+// hashTest.has("Ramo");
+// hashTest.remove("Rama");
+hashTest.length();
+hashTest.clear();
 console.log(hashTest.map);
