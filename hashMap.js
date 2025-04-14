@@ -154,7 +154,11 @@ class HashMap {
     let entriesArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        entriesArray.push(entry)
+        //console.log(entry)
+        for (const node of entry.list) {
+          //console.log(node.value)
+          entriesArray.push(node.value)
+        }
       }
     }
     console.log("entries: ", entriesArray);
@@ -187,7 +191,7 @@ hashTest.set("Sita", "glicky");
 //hashTest.remove("Paco");
 //hashTest.length();
 //hashTest.clear();
-hashTest.keys();
-hashTest.values();
-//hashTest.entries();
+// hashTest.keys();
+// hashTest.values();
+hashTest.entries();
 //console.log(hashTest.map);
