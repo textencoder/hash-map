@@ -23,7 +23,7 @@ class HashMap {
     if (this.map[this.hash(key)] !== undefined) {
       if (Object.keys(this.map[this.hash(key)]).toString() !== key) {
         this.map[this.hash(key)].append({ [key]: value })
-        console.log(this.map[this.hash(key)].list)
+        //console.log(this.map[this.hash(key)].list)
         //console.log(this.map[this.hash(key)])
         //console.log(Object.keys(this.map[this.hash(key)]).toString())
         console.log("collision handled!");
@@ -32,21 +32,35 @@ class HashMap {
     }
     this.map[this.hash(key)] = new LinkedList();
     this.map[this.hash(key)].append({ [key]: value })
-    console.log(this.map[this.hash(key)].list)
+    //console.log(this.map[this.hash(key)].list)
     //console.log(this.map);
     //console.log( typeof Object.entries(this.map[this.hash(key)])[0][0])
   }
 
   get(key) {
-    if (this.map[this.hash(key)] !== undefined) {
-      if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-        console.log(
-          "get value: ",
-          Object.entries(this.map[this.hash(key)])[0][1]
-        );
-        return Object.entries(this.map[this.hash(key)])[0][1];
+    console.log(this.map[this.hash(key)].list)
+      if (this.map[this.hash(key)] !== undefined) {
+        for (const node of this.map[this.hash(key)].list) {
+          console.log("node: ", node)
+          console.log("node value: ", node.value)
+          console.log("node value key: ", Object.keys(node.value).toString())
+          if (Object.keys(node.value).toString() === key) {
+            console.log("get value: ", Object.values(node.value).toString())
+            return Object.values(node.value).toString();
+          }
+        }
       }
-    }
+      console.log("null: key not found")
+      return null;
+    // if (this.map[this.hash(key)] !== undefined) {
+    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
+    //     console.log(
+    //       "get value: ",
+    //       Object.entries(this.map[this.hash(key)])[0][1]
+    //     );
+    //     return Object.entries(this.map[this.hash(key)])[0][1];
+    //   }
+    // }
   }
 
   has(key) {
@@ -131,7 +145,11 @@ const hashTest = new HashMap(0.75, 16, []);
 hashTest.set("Rama", "tricky");
 hashTest.set("Dani", "smiggy");
 hashTest.set("Paso", "shifty");
-hashTest.set("Sita", "glicky")
+hashTest.set("Sita", "glicky");
+
+hashTest.get("Dani")
+hashTest.get("Sita")
+hashTest.get("Mono")
 // hashTest.set("Sita", "glicky");
 // hashTest.set("Rama", "blicky");
 // hashTest.get("Rama");
@@ -142,4 +160,4 @@ hashTest.set("Sita", "glicky")
 //hashTest.keys();
 //hashTest.values();
 //hashTest.entries();
-console.log(hashTest.map);
+//console.log(hashTest.map);
