@@ -103,7 +103,8 @@ class HashMap {
     let length = 0;
     for (const entry of this.map) {
       if (entry !== undefined) {
-        length++;
+        //console.log(entry.list)
+        length += entry.list.length;
       }
     }
     console.log("length: ", length)
@@ -175,11 +176,11 @@ hashTest.set("Sita", "glicky");
 // hashTest.set("Rama", "blicky");
 // hashTest.get("Rama");
 // hashTest.has("Ramo");
-hashTest.remove("Rama");
-hashTest.remove("Paco");
+//hashTest.remove("Rama");
+//hashTest.remove("Paco");
 //hashTest.length();
-//hashTest.clear();
+hashTest.clear();
 //hashTest.keys();
 //hashTest.values();
 //hashTest.entries();
-//console.log(hashTest.map);
+console.log(hashTest.map);
