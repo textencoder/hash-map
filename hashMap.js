@@ -3,6 +3,7 @@ const { LinkedList, Node } = require("./linkedList.js");
 class HashMap {
   constructor(loadFactor, capacity, map = []) {
     this.loadFactor = loadFactor;
+    this.capacity = capacity;
     this.map = map;
     this.map.length = capacity;
   }
@@ -12,10 +13,10 @@ class HashMap {
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 31;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i));
     }
 
-    return hashCode;
+    return hashCode % this.capacity;
   }
 
   set(key, value) {
@@ -26,7 +27,7 @@ class HashMap {
           return;
         }
         if (Object.keys(node.value).toString() !== key) {
-          console.log(Object.keys(node.value).toString());
+          //console.log(Object.keys(node.value).toString());
           this.map[this.hash(key)].append({ [key]: value });
           return;
         }
