@@ -1,4 +1,4 @@
-import { LinkedList, Node } from "./linkedList.js";
+const { LinkedList, Node } =  require("./linkedList.js");
 
 class HashMap {
   constructor(loadFactor, capacity, map = []) {
@@ -21,13 +21,19 @@ class HashMap {
 
   set(key, value) {
     if (this.map[this.hash(key)] !== undefined) {
-      if (Object.keys(this.map[this.hash(key)])[0] !== key) {
-        console.log("collision course!");
+      if (Object.keys(this.map[this.hash(key)]).toString() !== key) {
+        this.map[this.hash(key)].append({ [key]: value })
+        console.log(this.map[this.hash(key)].list)
+        //console.log(this.map[this.hash(key)])
+        //console.log(Object.keys(this.map[this.hash(key)]).toString())
+        console.log("collision handled!");
         return;
       }
     }
-    this.map[this.hash(key)] = { [key]: value };
-    console.log(this.map);
+    this.map[this.hash(key)] = new LinkedList();
+    this.map[this.hash(key)].append({ [key]: value })
+    console.log(this.map[this.hash(key)].list)
+    //console.log(this.map);
     //console.log( typeof Object.entries(this.map[this.hash(key)])[0][0])
   }
 
@@ -125,6 +131,7 @@ const hashTest = new HashMap(0.75, 16, []);
 hashTest.set("Rama", "tricky");
 hashTest.set("Dani", "smiggy");
 hashTest.set("Paso", "shifty");
+hashTest.set("Sita", "glicky")
 // hashTest.set("Sita", "glicky");
 // hashTest.set("Rama", "blicky");
 // hashTest.get("Rama");
@@ -132,7 +139,7 @@ hashTest.set("Paso", "shifty");
 // hashTest.remove("Rama");
 //hashTest.length();
 //hashTest.clear();
-hashTest.keys();
-hashTest.values();
-hashTest.entries();
+//hashTest.keys();
+//hashTest.values();
+//hashTest.entries();
 console.log(hashTest.map);
