@@ -16,7 +16,22 @@ class HashMap {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i));
     }
 
+    if (hashCode % this.capacity < 0 || hashCode % this.capacity >= this.capacity) {
+      throw new Error("Trying to access index out of bounds");
+    }
+    
     return hashCode % this.capacity;
+  }
+
+  resize() {
+      console.log("resizing...")
+      this.capacity *= 2;
+      this.map.length = this.capacity;
+      this.entries();
+    //get all current entries
+    //rehash each entry with set method
+    //store in new array
+    //replace this.map with new array
   }
 
   set(key, value) {
@@ -35,6 +50,11 @@ class HashMap {
     }
     this.map[this.hash(key)] = new LinkedList();
     this.map[this.hash(key)].append({ [key]: value });
+
+    if (this.length() >= this.capacity * this.loadFactor) {
+      this.resize();
+    }
+    
   }
 
   get(key) {
@@ -80,7 +100,7 @@ class HashMap {
         length += entry.list.length;
       }
     }
-    console.log("length: ", length);
+    //console.log("length: ", length);
     return length;
   }
 
@@ -159,5 +179,5 @@ hashTest.set("Sita", "glicky");
 //hashTest.clear();
 // hashTest.keys();
 // hashTest.values();
-hashTest.entries();
+//hashTest.entries();
 console.log(hashTest.map);
