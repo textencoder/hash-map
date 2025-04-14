@@ -22,27 +22,16 @@ class HashMap {
     if (this.map[this.hash(key)] !== undefined) {
       if (Object.keys(this.map[this.hash(key)]).toString() !== key) {
         this.map[this.hash(key)].append({ [key]: value })
-        //console.log(this.map[this.hash(key)].list)
-        //console.log(this.map[this.hash(key)])
-        //console.log(Object.keys(this.map[this.hash(key)]).toString())
-        //console.log("collision handled!");
         return;
       }
     }
     this.map[this.hash(key)] = new LinkedList();
     this.map[this.hash(key)].append({ [key]: value })
-    //console.log(this.map[this.hash(key)].list)
-    //console.log(this.map);
-    //console.log( typeof Object.entries(this.map[this.hash(key)])[0][0])
   }
 
   get(key) {
-    //console.log(this.map[this.hash(key)].list)
       if (this.map[this.hash(key)] !== undefined) {
         for (const node of this.map[this.hash(key)].list) {
-          //console.log("node: ", node)
-          //console.log("node value: ", node.value)
-          //console.log("node value key: ", Object.keys(node.value).toString())
           if (Object.keys(node.value).toString() === key) {
             console.log("get value: ", Object.values(node.value).toString())
             return Object.values(node.value).toString();
@@ -51,15 +40,6 @@ class HashMap {
       }
       console.log("null: key not found")
       return null;
-    // if (this.map[this.hash(key)] !== undefined) {
-    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-    //     console.log(
-    //       "get value: ",
-    //       Object.entries(this.map[this.hash(key)])[0][1]
-    //     );
-    //     return Object.entries(this.map[this.hash(key)])[0][1];
-    //   }
-    // }
   }
 
   has(key) {
@@ -69,14 +49,6 @@ class HashMap {
     }
     console.log(false);
     return false;
-    // if (this.map[this.hash(key)] !== undefined) {
-    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-    //     console.log(true);
-    //     return true;
-    //   }
-    // }
-    // console.log(false)
-    // return false;
   }
 
   remove(key) {
@@ -91,19 +63,12 @@ class HashMap {
     }
     console.log("no matching nodes");
     return false;
-    // if (this.map[this.hash(key)] !== undefined) {
-    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-    //     console.log("deleted: ", this.map[this.hash(key)]);
-    //     delete this.map[this.hash(key)];
-    //   }
-    // }
   }
 
   length() {
     let length = 0;
     for (const entry of this.map) {
       if (entry !== undefined) {
-        //console.log(entry.list)
         length += entry.list.length;
       }
     }
@@ -124,9 +89,7 @@ class HashMap {
     let keysArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        //console.log(index, entry.list)
         for (const node of entry.list) {
-          //console.log(Object.keys(node.value).toString())
           keysArray.push(Object.keys(node.value).toString())
         }
       }
@@ -139,9 +102,7 @@ class HashMap {
     let valuesArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        //console.log(index, entry.list)
         for (const node of entry.list) {
-          //console.log(Object.values(node.value).toString())
           valuesArray.push(Object.values(node.value).toString())
         }
       }
@@ -154,9 +115,7 @@ class HashMap {
     let entriesArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        //console.log(entry)
         for (const node of entry.list) {
-          //console.log(node.value)
           entriesArray.push(node.value)
         }
       }
@@ -167,8 +126,6 @@ class HashMap {
 }
 
 const hashTest = new HashMap(0.75, 16, []);
-
-//console.log(hashTest.hash('Rama'))
 
 hashTest.set("Rama", "tricky");
 hashTest.set("Dani", "smiggy");
