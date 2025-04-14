@@ -3,7 +3,6 @@ const { LinkedList, Node } =  require("./linkedList.js");
 class HashMap {
   constructor(loadFactor, capacity, map = []) {
     this.loadFactor = loadFactor;
-    //this.capacity = capacity;
     this.map = map;
     this.map.length = capacity;
   }
@@ -38,12 +37,12 @@ class HashMap {
   }
 
   get(key) {
-    console.log(this.map[this.hash(key)].list)
+    //console.log(this.map[this.hash(key)].list)
       if (this.map[this.hash(key)] !== undefined) {
         for (const node of this.map[this.hash(key)].list) {
-          console.log("node: ", node)
-          console.log("node value: ", node.value)
-          console.log("node value key: ", Object.keys(node.value).toString())
+          //console.log("node: ", node)
+          //console.log("node value: ", node.value)
+          //console.log("node value key: ", Object.keys(node.value).toString())
           if (Object.keys(node.value).toString() === key) {
             console.log("get value: ", Object.values(node.value).toString())
             return Object.values(node.value).toString();
@@ -64,23 +63,40 @@ class HashMap {
   }
 
   has(key) {
-    if (this.map[this.hash(key)] !== undefined) {
-      if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-        console.log(true);
-        return true;
-      }
+    if (this.get(key)) {
+      console.log(true);
+      return true;
     }
-    console.log(false)
+    console.log(false);
     return false;
+    // if (this.map[this.hash(key)] !== undefined) {
+    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
+    //     console.log(true);
+    //     return true;
+    //   }
+    // }
+    // console.log(false)
+    // return false;
   }
 
   remove(key) {
     if (this.map[this.hash(key)] !== undefined) {
-      if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
-        console.log("deleted: ", this.map[this.hash(key)]);
-        delete this.map[this.hash(key)];
+      for (const [index, node] of this.map[this.hash(key)].list.entries()) {
+        if (Object.keys(node.value).toString() === key) {
+          this.map[this.hash(key)].removeAt(index);
+          console.log("node removed");
+          return true;
+        }
       }
     }
+    console.log("no matching nodes");
+    return false;
+    // if (this.map[this.hash(key)] !== undefined) {
+    //   if (Object.entries(this.map[this.hash(key)])[0][0] == key) {
+    //     console.log("deleted: ", this.map[this.hash(key)]);
+    //     delete this.map[this.hash(key)];
+    //   }
+    // }
   }
 
   length() {
@@ -147,14 +163,20 @@ hashTest.set("Dani", "smiggy");
 hashTest.set("Paso", "shifty");
 hashTest.set("Sita", "glicky");
 
-hashTest.get("Dani")
-hashTest.get("Sita")
-hashTest.get("Mono")
+//hashTest.get("Dani")
+//hashTest.get("Sita")
+//hashTest.get("Mono")
+
+//hashTest.has("Dani")
+//hashTest.has("Sita")
+//hashTest.has("Mono")
+
 // hashTest.set("Sita", "glicky");
 // hashTest.set("Rama", "blicky");
 // hashTest.get("Rama");
 // hashTest.has("Ramo");
-// hashTest.remove("Rama");
+hashTest.remove("Rama");
+hashTest.remove("Paco");
 //hashTest.length();
 //hashTest.clear();
 //hashTest.keys();
