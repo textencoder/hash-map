@@ -25,7 +25,7 @@ class HashMap {
         //console.log(this.map[this.hash(key)].list)
         //console.log(this.map[this.hash(key)])
         //console.log(Object.keys(this.map[this.hash(key)]).toString())
-        console.log("collision handled!");
+        //console.log("collision handled!");
         return;
       }
     }
@@ -124,8 +124,11 @@ class HashMap {
     let keysArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        //console.log(Object.keys(entry).toString())
-        keysArray.push(Object.keys(entry).toString())
+        //console.log(index, entry.list)
+        for (const node of entry.list) {
+          //console.log(Object.keys(node.value).toString())
+          keysArray.push(Object.keys(node.value).toString())
+        }
       }
     }
     console.log("keys: ", keysArray)
@@ -136,7 +139,11 @@ class HashMap {
     let valuesArray = [];
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
-        valuesArray.push(Object.values(entry).toString())
+        //console.log(index, entry.list)
+        for (const node of entry.list) {
+          //console.log(Object.values(node.value).toString())
+          valuesArray.push(Object.values(node.value).toString())
+        }
       }
     }
     console.log("values: ", valuesArray);
@@ -179,8 +186,8 @@ hashTest.set("Sita", "glicky");
 //hashTest.remove("Rama");
 //hashTest.remove("Paco");
 //hashTest.length();
-hashTest.clear();
-//hashTest.keys();
-//hashTest.values();
+//hashTest.clear();
+hashTest.keys();
+hashTest.values();
 //hashTest.entries();
-console.log(hashTest.map);
+//console.log(hashTest.map);
