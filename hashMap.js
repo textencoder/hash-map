@@ -1,4 +1,4 @@
-const { LinkedList, Node } =  require("./linkedList.js");
+const { LinkedList, Node } = require("./linkedList.js");
 
 class HashMap {
   constructor(loadFactor, capacity, map = []) {
@@ -20,26 +20,33 @@ class HashMap {
 
   set(key, value) {
     if (this.map[this.hash(key)] !== undefined) {
-      if (Object.keys(this.map[this.hash(key)]).toString() !== key) {
-        this.map[this.hash(key)].append({ [key]: value })
-        return;
+      for (const node of this.map[this.hash(key)].list) {
+        if (Object.keys(node.value).toString() == key) {
+          node.value = { [key]: value };
+          return;
+        }
+        if (Object.keys(node.value).toString() !== key) {
+          console.log(Object.keys(node.value).toString());
+          this.map[this.hash(key)].append({ [key]: value });
+          return;
+        }
       }
     }
     this.map[this.hash(key)] = new LinkedList();
-    this.map[this.hash(key)].append({ [key]: value })
+    this.map[this.hash(key)].append({ [key]: value });
   }
 
   get(key) {
-      if (this.map[this.hash(key)] !== undefined) {
-        for (const node of this.map[this.hash(key)].list) {
-          if (Object.keys(node.value).toString() === key) {
-            console.log("get value: ", Object.values(node.value).toString())
-            return Object.values(node.value).toString();
-          }
+    if (this.map[this.hash(key)] !== undefined) {
+      for (const node of this.map[this.hash(key)].list) {
+        if (Object.keys(node.value).toString() === key) {
+          console.log("get value: ", Object.values(node.value).toString());
+          return Object.values(node.value).toString();
         }
       }
-      console.log("null: key not found")
-      return null;
+    }
+    console.log("null: key not found");
+    return null;
   }
 
   has(key) {
@@ -72,7 +79,7 @@ class HashMap {
         length += entry.list.length;
       }
     }
-    console.log("length: ", length)
+    console.log("length: ", length);
     return length;
   }
 
@@ -82,7 +89,7 @@ class HashMap {
         console.log("to be cleared: ", index);
         console.log("to be cleared: ", entry);
         delete this.map[index];
-      }   
+      }
   }
 
   keys() {
@@ -90,11 +97,11 @@ class HashMap {
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
         for (const node of entry.list) {
-          keysArray.push(Object.keys(node.value).toString())
+          keysArray.push(Object.keys(node.value).toString());
         }
       }
     }
-    console.log("keys: ", keysArray)
+    console.log("keys: ", keysArray);
     return keysArray;
   }
 
@@ -103,7 +110,7 @@ class HashMap {
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
         for (const node of entry.list) {
-          valuesArray.push(Object.values(node.value).toString())
+          valuesArray.push(Object.values(node.value).toString());
         }
       }
     }
@@ -116,7 +123,7 @@ class HashMap {
     for (const [index, entry] of this.map.entries()) {
       if (this.map[index] !== undefined) {
         for (const node of entry.list) {
-          entriesArray.push(node.value)
+          entriesArray.push(node.value);
         }
       }
     }
@@ -128,6 +135,7 @@ class HashMap {
 const hashTest = new HashMap(0.75, 16, []);
 
 hashTest.set("Rama", "tricky");
+hashTest.set("Rama", "whoaaa");
 hashTest.set("Dani", "smiggy");
 hashTest.set("Paso", "shifty");
 hashTest.set("Sita", "glicky");
@@ -151,4 +159,4 @@ hashTest.set("Sita", "glicky");
 // hashTest.keys();
 // hashTest.values();
 hashTest.entries();
-//console.log(hashTest.map);
+console.log(hashTest.map);
