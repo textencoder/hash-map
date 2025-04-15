@@ -13,25 +13,30 @@ class HashMap {
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i));
+      hashCode = primeNumber * hashCode + key.charCodeAt(i);
     }
 
-    if (hashCode % this.capacity < 0 || hashCode % this.capacity >= this.capacity) {
+    if (
+      hashCode % this.capacity < 0 ||
+      hashCode % this.capacity >= this.capacity
+    ) {
       throw new Error("Trying to access index out of bounds");
     }
-    
+
     return hashCode % this.capacity;
   }
 
   resize() {
-      console.log("resizing...")
-      this.capacity *= 2;
-      this.map.length = this.capacity;
-      this.entries();
+    console.log("resizing...");
+    this.capacity *= 2;
+    this.map.length = this.capacity;
+    const oldEntries = this.entries();
+    this.clear();
+    oldEntries.map((entry) => {
+      this.set(String(Object.keys(entry)), String(Object.values(entry)));
+    });
     //get all current entries
     //rehash each entry with set method
-    //store in new array
-    //replace this.map with new array
   }
 
   set(key, value) {
@@ -54,7 +59,6 @@ class HashMap {
     if (this.length() >= this.capacity * this.loadFactor) {
       this.resize();
     }
-    
   }
 
   get(key) {
@@ -153,31 +157,6 @@ class HashMap {
   }
 }
 
-const hashTest = new HashMap(0.75, 16, []);
-
-hashTest.set("Rama", "tricky");
-hashTest.set("Rama", "whoaaa");
-hashTest.set("Dani", "smiggy");
-hashTest.set("Paso", "shifty");
-hashTest.set("Sita", "glicky");
-
-//hashTest.get("Dani")
-//hashTest.get("Sita")
-//hashTest.get("Mono")
-
-//hashTest.has("Dani")
-//hashTest.has("Sita")
-//hashTest.has("Mono")
-
-// hashTest.set("Sita", "glicky");
-// hashTest.set("Rama", "blicky");
-// hashTest.get("Rama");
-// hashTest.has("Ramo");
-//hashTest.remove("Rama");
-//hashTest.remove("Paco");
-//hashTest.length();
-//hashTest.clear();
-// hashTest.keys();
-// hashTest.values();
-//hashTest.entries();
-console.log(hashTest.map);
+module.exports = {
+  HashMap,
+};
